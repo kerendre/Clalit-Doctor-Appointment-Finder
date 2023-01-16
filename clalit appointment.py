@@ -16,10 +16,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import datetime
 
-ZEUT_NUMBER = "311874481"
-YEAR_OF_BIRTH = '1986'
-PHONE_NUMBER = '0548367811'
-E_MAIL = 'keren.drev@gmail.com'
 
 zeut_number = ZEUT_NUMBER
 year_of_birth = YEAR_OF_BIRTH
