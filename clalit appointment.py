@@ -1,21 +1,19 @@
-# לבדוק אם העליון בשימוש
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.select import Select
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-from datetime import datetime
-#  Selenium custom exception that gets raised when an element cannot be found
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
-# import Action chains
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import datetime
 
+
+ZEUT_NUMBER= "311874481"
+YEAR_OF_BIRTH = "1986"
+PHONE_NUMBER= "0548367811"
+E_MAIL = "keren.drev@gmail.com"
 
 zeut_number = ZEUT_NUMBER
 year_of_birth = YEAR_OF_BIRTH
@@ -25,7 +23,8 @@ e_mail = E_MAIL
 doctor_specialization =  "אורתופדיה"
 city = "חיפה"
 doctor_name = "זיידמן איתן"
-what_hours_are_good_for_you = [21]
+what_hours_are_good_for_you = [11,12]
+
 # TODO : to add install only if its not working
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
@@ -128,7 +127,7 @@ def go_to_next_day():
     return len(list_of_available_days)
 
 
-number_of_days_with_appointments = go_to_next_day()
+#number_of_days_with_appointments = go_to_next_day()
 
 
 # #~~~~~~~~~~~~~~~~~~~~move throw hours ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -169,18 +168,14 @@ def find_appointment_on_defined_hours_of_a_certain_day(*args):
                 if (len(appoint.text) == 16):
                     hour_str = (appoint.text[:2])
                     hour =  hour_str
-                    #go 34 pixel down 14-01-23
+                    #go 34 pixel down for every hour that is going
                     driver.execute_script("window.scrollBy(0,34)","")
 
-                    if (hour in hours_in_which_its_good_hours):
-
+                    if (int(hour) in hours_in_which_its_good_hours):
                         wait_4_few_sec = WebDriverWait(driver, timeout=10)
-
                         wait_4_few_sec.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".bigButtonEnabled.createVisitButton"))).click()
 
             except NoSuchElementException:
-
-
                 print("you got NoSuchElementException and except NoSuchElementException: was operated, it happened when the appointment was "
                       "ordered ")
                 break
